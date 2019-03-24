@@ -12,3 +12,4 @@ headaches.
 I found a nice tutorial for setting up a CNN to work on the MNIST-Fashion dataset, it might
 be a good starting point for us. Of course, we can also use whatever dataset we want, Dr.
 Hamm recommended Cifar.
+https://www.datacamp.com/community/tutorials/cnn-tensorflow-python/
