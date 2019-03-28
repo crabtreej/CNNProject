@@ -121,9 +121,9 @@ datagen.fit(x_train)
 
 # Jacob - I reduced the number of steps per epoch to something feasible for my
 # machine because I cannot use the GPU. Please use something like 
-# math.ceil(len(x_train) / batch_size) if you can use the GPU.
+# ceil(len(x_train) / batch_size) if you can use the GPU.
 arbitrary_steps_per_epoch = 20
-correct_steps_per_epoch = math.ceil(len(x_train) / batch_size)
+correct_steps_per_epoch = ceil(len(x_train) / batch_size)
 
 #steps_per_epoch = arbitrary_steps_per_epoch
 steps_per_epoch = correct_steps_per_epoch
