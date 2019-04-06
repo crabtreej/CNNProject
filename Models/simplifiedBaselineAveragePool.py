@@ -8,8 +8,8 @@ import keras
 from keras.datasets import cifar10
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, Activation, Flatten
-from keras.layers import Conv2D, MaxPooling2D
+from keras.layers import Dense, Activation, Flatten
+from keras.layers import Conv2D, AveragePooling2D
 import os
 from math import ceil
 from sklearn.model_selection import train_test_split
@@ -56,7 +56,7 @@ def compile_CNN(input_shape, num_classes):
     model.add(Conv2D(1, (3, 3), padding='same',
                      input_shape=input_shape))
     model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(AveragePooling2D(pool_size=(2, 2)))
     model.add(Flatten())
     model.add(Dense(num_classes))
     model.add(Activation('softmax'))
