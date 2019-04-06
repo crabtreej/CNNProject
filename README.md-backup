@@ -41,15 +41,3 @@ all something different so we don't overwrite someone's data.
 I wrote a helper script for running a saved model on testing data. If you want to see how 
 one of the models I specified above ran, just run evaluatedKerasMode.py -h to see the help
 text on how to use it.
-
-I found a resource called Google Collaboratory that offers 400GB of space in the cloud and 
-access to CPU, GPU, and TPU Tensorflow for FREE in Google Cloud. You can just upload Python
-snippets and run them, then download the results, it's literally just a Google cloud file
-system. So if you can't use GPU on your machine, or it's still kind of slow, running
-python3 simplifedBaseline.py took ~1.5 hours on my local machine, but 15 minutes in 
-Collaboratory, just as a benchmark. You can run simplifiedBaseline yourself and check
-if Collaboratory would be better for you too.
-https://colab.research.google.com
-Just sign in with your google account, add a code cell, upload the Python file you want
-to run and copy-paste it verbatim into the cell, then go to runtime->runtime type->GPU, and
-finally run the cell. It's a lot faster than anything my computer can achieve.
