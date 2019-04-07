@@ -75,7 +75,7 @@ batch_size = 32
 num_classes = 10
 epochs = 100
 save_dir = os.path.join(os.getcwd(), 'saved_models')
-model_name = 'basic_baseline_model_max_pool'
+model_name = 'basic_baseline_model_avg_pool'
 model_name_extension = '.h5'
 
 x_train, y_train, x_val, y_val, x_test, y_test = prepare_cifar10_data(num_classes)
@@ -124,7 +124,7 @@ datagen.fit(x_train)
 # Jacob - I reduced the number of steps per epoch to something feasible for my
 # machine because I cannot use the GPU. Please use something like 
 # ceil(len(x_train) / batch_size) if you can use the GPU.
-arbitrary_steps_per_epoch = 20
+arbitrary_steps_per_epoch = 10
 correct_steps_per_epoch = ceil(len(x_train) / batch_size)
 
 #steps_per_epoch = arbitrary_steps_per_epoch
