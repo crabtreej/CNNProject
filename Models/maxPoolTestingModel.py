@@ -62,12 +62,12 @@ def compile_CNN(input_shape, num_classes, pool_shape, pool_stride):
     
     model.add(Conv2D(64, (3, 3), padding='same'))#, input_shape=input_shape))
     model.add(Activation('relu'))
-    model.add(AveragePooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
+    model.add(MaxPooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
     model.add(Dropout(0.25))
     
     model.add(Conv2D(64, (3, 3), padding='same'))#, input_shape=input_shape))
     model.add(Activation('relu'))
-    model.add(AveragePooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
+    model.add(MaxPooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
     model.add(Dropout(0.25))
     
     model.add(Flatten())
@@ -104,7 +104,7 @@ pool_params = (((2,2), 1), ((2,2), 2), ((2,2), 3), ((2,2), 4), ((3,3), 1),
 for param in pool_params:
   K.clear_session()
   tf.reset_default_graph()
-  model_name = 'average_pool'
+  model_name = 'max_pool'
   model_name_extension = '.h5'
   pooling_shape = param[0]
   model_name += '_' + str(pooling_shape[0]) + '_' + str(pooling_shape[0])
@@ -187,4 +187,5 @@ for param in pool_params:
   scores = model.evaluate(x_test, y_test, verbose=1)
   print(f'For Model: {model_name}')
   print('Test loss:', scores[0])
-  print('Test accuracy:', scores[1])			
+  print('Test accuracy:', scores[1])
+
