@@ -187,4 +187,5 @@ for param in pool_params:
   scores = model.evaluate(x_test, y_test, verbose=1)
   print(f'For Model: {model_name}')
   print('Test loss:', scores[0])
-  print('Test accuracy:', scores[1])			
+  print('Test accuracy:', scores[1])
+
