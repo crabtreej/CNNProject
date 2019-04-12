@@ -10,7 +10,7 @@ from keras.datasets import cifar10
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten, Dropout
-from keras.layers import Conv2D, MaxPooling2D, AveragePooling2D
+from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
 import os
 from math import ceil
@@ -57,17 +57,17 @@ def compile_CNN(input_shape, num_classes, pool_shape, pool_stride):
     model = Sequential()
     model.add(Conv2D(64, (3, 3), padding='same', input_shape=input_shape))
     model.add(Activation('relu'))
-    model.add(AveragePooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
+    model.add(MaxPooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
     model.add(Dropout(0.25))
     
     model.add(Conv2D(64, (3, 3), padding='same'))#, input_shape=input_shape))
     model.add(Activation('relu'))
-    model.add(AveragePooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
+    model.add(MaxPooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
     model.add(Dropout(0.25))
     
     model.add(Conv2D(64, (3, 3), padding='same'))#, input_shape=input_shape))
     model.add(Activation('relu'))
-    model.add(AveragePooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
+    model.add(MaxPooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
     model.add(Dropout(0.25))
     
     model.add(Flatten())
@@ -104,7 +104,7 @@ pool_params = (((2,2), 1), ((2,2), 2), ((2,2), 3), ((2,2), 4), ((3,3), 1),
 for param in pool_params:
   K.clear_session()
   tf.reset_default_graph()
-  model_name = 'average_pool'
+  model_name = 'max_pool'
   model_name_extension = '.h5'
   pooling_shape = param[0]
   model_name += '_' + str(pooling_shape[0]) + '_' + str(pooling_shape[0])
