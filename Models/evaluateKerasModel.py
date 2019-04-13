@@ -18,7 +18,7 @@ def reload_keras_model(model_path):
                       optimizer=opt,
                       metrics=['accuracy'])
     else:
-        print(f'The model did not exist at {model_path}.')
+        print(f'The model did not exist at \'{model_path}\'.')
         print(f'The code assumes os.getcwd()/saved_models contains the model.')
         print(f'If that\'s not the case, make sure to input the path as an argument.')
         quit()
@@ -31,6 +31,49 @@ def report_test_metrics(model, x_test, y_test):
     scores = model.evaluate(x_test, y_test, verbose=1)
     print('Test loss:', scores[0])
     print('Test accuracy:', scores[1])
+
+# Jacob - Returns x data and y-labels for cifar-10 test, ready to be passed into the model
+def get_cifar_data():
+    # Jacob - only load the data we need 
+    from keras.datasets import cifar10
+
+    # Jacob - cifar-10 has ten classes
+    num_classes = 10
+
+    # Jacob - The data, split between train and test sets:
+    (x_train, y_train), (x_test, y_test) = cifar10.load_data()
+
+    # Jacob - Prepare the testing data (assuming we're using cifar10, we divide by 255)
+    y_test = keras.utils.to_categorical(y_test, num_classes)
+    x_test = x_test.astype('float32')
+    x_test /= 255
+
+    return x_test, y_test
+
+# Jacob - returns x data and y-labels from the test set for MNIST, ready to be tested 
+def get_mnist_data():
+    # Jacob - get MNIST data
+    from keras.datasets import mnist
+    from keras import backend as K
+
+    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+   
+    # Jacob - MNIST has ten classes
+    num_classes = 10
+    img_rows = 28
+    img_cols = 28
+    y_test = keras.utils.to_categorical(y_test, num_classes)
+
+    # Jacob - make sure it's the right shape (from the Keras MNIST tutorial)
+    if K.image_data_format() == 'channels_first':
+        x_test = x_test.reshape(x_test.shape[0], 1, img_rows, img_cols)
+    else:
+        x_test = x_test.reshape(x_test.shape[0], img_rows, img_cols, 1)
+
+    x_test = x_test.astype('float32')
+    x_test /= 255
+
+    return x_test, y_test
 
 # Jacob - This iterates through each epoch in the training history
 # saved in the pickle file, and prints the validation and training
@@ -104,7 +147,7 @@ if __name__ == '__main__':
     parser.add_argument('--model_dir', default=default_model_dir, help='Specify if model isn\'t in ./saved_models/')
     parser.add_argument('-t', '--show_training', action='store_true', help='Specify if you want to see the training history (validation error, testing error, and loss)')
     parser.add_argument('-g', '--make_graph', action='store_true', help='Graph training and validation accuracy and losses on a 2x2 pyplot, must specify show_training')
-
+    parser.add_argument('--mnist', action='store_true', help='set flag if analyzing results from MNIST dataset')
     args = parser.parse_args()
 
     model_path = os.path.join(args.model_dir, args.model_name + '.h5')
@@ -112,21 +155,15 @@ if __name__ == '__main__':
     # Jacob - these take forever to import, so there's no reason to
     # do it until we know we need them (e.g. someone could specify -h for arg).
     import keras
-    from keras.datasets import cifar10
     from keras.models import load_model
 
-    # Jacob - assume cifar10 for now, we can adjust this if needed.
-    num_classes = 10
-
-    # The data, split between train and test sets:
-    (x_train, y_train), (x_test, y_test) = cifar10.load_data()
-
-    # Jacob - Prepare the testing data (assuming we're using cifar10, we divide by 255)
-    y_test = keras.utils.to_categorical(y_test, num_classes)
-    x_test = x_test.astype('float32')
-    x_test /= 255
-
+    # Jacob - different routines for loading the different datasets
     model = reload_keras_model(model_path)
+    if args.mnist:
+        x_test, y_test = get_mnist_data()
+    else:
+        x_test, y_test = get_cifar_data()
+
     report_test_metrics(model, x_test, y_test)
 
     if args.show_training:
