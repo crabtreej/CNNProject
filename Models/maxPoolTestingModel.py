@@ -10,7 +10,7 @@ from keras.datasets import cifar10
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten, Dropout
-from keras.layers import Conv2D, MaxPooling2D, AveragePooling2D
+from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
 import os
 from math import ceil
@@ -57,7 +57,7 @@ def compile_CNN(input_shape, num_classes, pool_shape, pool_stride):
     model = Sequential()
     model.add(Conv2D(64, (3, 3), padding='same', input_shape=input_shape))
     model.add(Activation('relu'))
-    model.add(AveragePooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
+    model.add(MaxPooling2D(pool_size=pool_shape, strides=pool_stride, padding='same'))
     model.add(Dropout(0.25))
     
     model.add(Conv2D(64, (3, 3), padding='same'))#, input_shape=input_shape))
