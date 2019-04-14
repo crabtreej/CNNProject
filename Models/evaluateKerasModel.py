@@ -78,7 +78,7 @@ def get_mnist_data():
 # Jacob - This iterates through each epoch in the training history
 # saved in the pickle file, and prints the validation and training
 # accuracy. 
-def report_training_history(train_hist_path, make_graph):
+def report_training_history(train_hist_path, make_graph, graph_title):
     # Jacob - Read in the file
     train_hist_file = open(train_hist_path + '.pckl', 'rb')
     hist_dict = pickle.load(train_hist_file)
@@ -101,12 +101,12 @@ def report_training_history(train_hist_path, make_graph):
         epoch += 1
 
     if make_graph:
-        graph_error(val_loss_hist, val_acc_hist, train_loss_hist, train_acc_hist)
+        graph_error(val_loss_hist, val_acc_hist, train_loss_hist, train_acc_hist, graph_title)
 
 # Jacob - This takes the validation and training losses and accuracies and
 # makes a 2x2 Pyplot graph out of them. Will later accept an overall
 # title for the graph and save that to disk.
-def graph_error(val_losses, val_acc, train_losses, train_acc):
+def graph_error(val_losses, val_acc, train_losses, train_acc, graph_title):
     fig, axes = plt.subplots(nrows=2, ncols=2)
     train_loss_ax, val_loss_ax, train_acc_ax, val_acc_ax = axes.flatten()
 
@@ -134,6 +134,8 @@ def graph_error(val_losses, val_acc, train_losses, train_acc):
     plt.show()
 
     # Jacob - TODO: take a name for the graph and save it to disk
+    if graph_title:
+        # Jacob - save the graph
 
 # Jacob - use argparse to get the path to the model, load in test data, and then
 # evaluate the model on the test data. If you have an already existing model and you
@@ -148,6 +150,7 @@ if __name__ == '__main__':
     parser.add_argument('-t', '--show_training', action='store_true', help='Specify if you want to see the training history (validation error, testing error, and loss)')
     parser.add_argument('-g', '--make_graph', action='store_true', help='Graph training and validation accuracy and losses on a 2x2 pyplot, must specify show_training')
     parser.add_argument('--mnist', action='store_true', help='set flag if analyzing results from MNIST dataset')
+    parser.add_argument('--title', help='specify title if you want the resulting graph saved')
     args = parser.parse_args()
 
     model_path = os.path.join(args.model_dir, args.model_name + '.h5')
@@ -167,4 +170,4 @@ if __name__ == '__main__':
     report_test_metrics(model, x_test, y_test)
 
     if args.show_training:
-        report_training_history(os.path.join(args.model_dir, args.model_name), args.make_graph)
+        report_training_history(os.path.join(args.model_dir, args.model_name), args.make_graph, args.title)
