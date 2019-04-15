@@ -1,0 +1,8 @@
+dataset,pool type,pool size,pool stride,accuracy
+mnist,max,2x2,1,0.9904
+mnist,max,2x2,2,0.9852
+mnist,max,2x2,3,0.973
+mnist,max,2x2,4,0.9592
+mnist,max,3x3,1,0.9852
+mnist,max,3x3,2,0.9894
+mnist,max,3x3,3,0.9813

@@ -1,0 +1,6 @@
+dataset,pool type,pool size,pool stride,accuracy
+cifar,max,16x16,1,0.5914
+cifar,max,16x16,2,0.6706
+cifar,max,16x16,3,0.677
+cifar,max,16x16,4,0.6493
+cifar,max,16x16,16,0.574

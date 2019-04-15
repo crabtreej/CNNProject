@@ -2,6 +2,9 @@ import os
 import argparse
 import pickle
 import matplotlib.pyplot as plt
+import keras
+from keras.models import load_model
+
 
 # Jacob - takes a path to a model saved in a .h5 file 
 # and returns a keras model that is ready for evaluation on a test set
@@ -31,6 +34,7 @@ def report_test_metrics(model, x_test, y_test):
     scores = model.evaluate(x_test, y_test, verbose=1)
     print('Test loss:', scores[0])
     print('Test accuracy:', scores[1])
+    return (scores[0], scores[1])
 
 # Jacob - Returns x data and y-labels for cifar-10 test, ready to be passed into the model
 def get_cifar_data():
@@ -135,6 +139,7 @@ def graph_error(val_losses, val_acc, train_losses, train_acc, graph_title):
 
     # Jacob - TODO: take a name for the graph and save it to disk
     if graph_title:
+        pass
         # Jacob - save the graph
 
 # Jacob - use argparse to get the path to the model, load in test data, and then
