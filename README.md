@@ -1,6 +1,11 @@
 # CNNProject
 Project Github for Neural Nets (5526)
 
+The overarching goal of this project was to explore the effects of various pooling strategies in CNNs, specifically max and average pooling using various parameters. This project provided some useful empirical data on how to choose pooling strategies based on the type of data, and what to expect in terms of accuracy gain or loss as pooling parameters are tweaked. This was measured using a simple CNN setup run on both the cifar-10 and mnist image datasets.
+
+This project was originally private, so the rest of the contents of the readme were originally used for the members of the team to share various discoveries, ideas, and useful links as we worked through the project.
+
+
 Pipfiles included have tensorflow, sk-learn, and a few other libraries already installed.
 If you don't know what pipenv is, I highly recommend you go learn about it, then install pipenv
 for Python3. It automatically manages Python dependencies, and means that if we all work on 
